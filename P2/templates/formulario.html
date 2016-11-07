@@ -1,0 +1,30 @@
+{% extends "web.html" %}
+{% block content %}
+  <h2>Welcome!</h2>
+  	{% if error %}
+		<p class="error"><strong>Error:</strong> {{ error }}
+	{% endif %}
+    <div class="container">
+	    <form action ="/formulario" method ="post">
+		    <p><label><b>Username</b></label>
+		    <input type="text" placeholder="tu nombre de usuario" name="username" required></p>
+
+		    <p><label><b>Contrseña</b></label>
+		    <input type="password" placeholder="tu conraseña" name="password" required></p>
+
+		    <p><label><b>Nombre</b></label>
+		    <input type="text" placeholder="tu nombre" name="name" required></p>
+
+		    <p><label><b>Primer apellido</b></label>
+		    <input type="text" placeholder="tu apellido" name="lastname" required></p>
+
+		    <p><label><b>Segundo apellido </b></label>
+		    <input type"text" placeholder="tu apellido" name="lastlastname" required></p>
+
+			<p><input name="sexo" type="radio" value="masculino"/> Hombre</p>
+			<p><input name="sexo" type="radio" value="femenino"/> Mujer</p>
+
+		    <p><button type="submit" value="Signin">Sign in</button></p>
+		</form>
+  	</div>
+{% endblock %}

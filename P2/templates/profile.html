@@ -1,0 +1,24 @@
+{% extends "web.html" %}
+{% block content %}
+  <div class="container">
+	    <form action ="/profile" method ="post">
+
+		    <p><label><b>Contraseña</b></label>
+		    <input type="password" placeholder= {{ pwd }} name="password" required></p>
+
+		    <p><label><b>Nombre</b></label>
+		    <input type="text" placeholder= {{ name }} name="name" required></p>
+
+		    <p><label><b>Primer apellido</b></label>
+		    <input type="text" placeholder= {{ lastname }} name="lastname" required></p>
+
+		    <p><label><b>Segundo apellido </b></label>
+		    <input type="text" placeholder= {{ lastlastname }} name="lastlastname" required></p>
+
+		    <input name="sexo" type="radio" value="masculino"/> Hombre
+			<input name="sexo" type="radio" value="femenino"/> Mujer
+			
+		    <p><button type="submit" value="OK">OK</button></p>
+		</form>
+  	</div>
+{% endblock %}

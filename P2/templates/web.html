@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link rel="stylesheet" type="text/css" href="../static/css/style3.css" title="style">
+  <title>BUGANVILLA</title>
+</head>
+
+<body>
+<!-- Contenedor -->
+<div id="contenedor">
+  <!-- Cabecera -->
+  <div id="cabecera">
+    <div id="logo">
+      <p><h1><span>Festival de Música Buganvilla</span></h1></p>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <!-- /Cabecera -->
+  
+  <!-- Menu principal -->
+  {% if usuario %}
+  	<h2>¡Bienvenidx {{ usuario }}!</h2>
+  	<div class="container">
+	    <form action ="/logout">
+		    <button type="submit" value="Logout">Logout</button>
+		</form>
+  	</div>
+  {% else %}
+    <h2>¡Bienvenidx!</h2>
+    <div class="container">
+	    <form action ="/login" method ="post">
+		    <label><b>usuario</b></label>
+		    <input type="text" placeholder="introduce usuario" name="username" required>
+
+		    <label><b>contraseña</b></label>
+		    <input type="password" placeholder="introduce contraseña" name="password" required>
+
+		    <button type="submit" value="Login">login</button>
+		</form>
+		<form action ="/signin" method="post">
+			<button type="submit" value="Signin">sign in</button>
+		</form>
+		{% if error %}
+			<p class="error"><strong>Ups!:</strong> {{ error }}
+		{% endif %}
+  	</div>
+  {% endif %}
+
+  <!-- Lateral -->
+  <div id="lateral">
+
+    <!-- Menu principal -->
+    <div id="menu">
+      <h3>Menú</h3>
+      <ul id="menu_principal">
+        <p>
+          <a href="/">Buganvilla</a>
+        </p>
+        <p>
+          <a href="Programacion">Programación</a>
+        </p>
+        <p>
+           <a href="Informacion">Información</a>
+        </p>
+        <p>
+          <a href="Entradas">Entradas</a>
+        </p>
+        <p>
+        	<a href="Perfil">Perfil</a>
+        </p>
+      </ul>
+      <div class="clear"></div>
+     </div>
+  	{% if usuario %}
+    <!-- Noticias -->
+    <div id="noticias">
+
+      <h3>Recientemente...</h3>
+      {% if pags %}
+      	{% for pag in pags %}
+      		<p><a href= {{ pag }}>{{ pag }}</a></p>
+      	{% endfor %}
+      {% endif %}
+    </div>
+    <!-- /Noticias -->
+    {% endif %}
+
+  </div>
+  <!-- /Lateral -->
+  
+<div id="contenido">
+  
+  <!-- Principal -->
+
+  {% block content %}
+  
+  	<h2>27, 28, 29 MARZO 2017</h2>
+  	<img src="/static/imagenes/buganvilla.jpg">
+  
+  {% endblock %}
+
+  <!-- /Principal -->
+</div>
+
+  <!-- /Contenido -->
+  
+    <div class="clear"></div>
+  
+    <!-- Pie -->
+  <div id="pie">
+    <span class="enlaces">
+      <a href="https://www.facebook.com/pitchforkparis">Facebook</a> |
+      <a href="https://www.instagram.com/pitchforkparis">Instagram</a>
+    </span>
+    
+    <span class="copyright">
+       © 2016 Condé Nast. All rights reserved. Use of this site constitutes acceptance of our User Agreement and Privacy Policy. The material on this site may not be reproduced, distributed, transmitted, cached or otherwise used, except with prior written permission of Condé Nast.
+    </span>
+    <div class="clear"></div>
+  </div>
+  <!-- /Pie -->
+
+</div>
+<!-- /Contenedor -->
+
+
+</body></html>
