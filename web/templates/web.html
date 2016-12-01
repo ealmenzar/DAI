@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+<head>
+	<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" type="text/css" href="../static/css/style3.css" title="style">-->
+    <link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap.min.css">
+    <!-- Optional Bootstrap theme -->
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap-theme.min.css">
+    <style type="text/css">
+	    /* Some custom styles to beautify this example */
+	    .demo-content{
+	        padding: 10px;
+	        font-size: 15px;
+	        min-height: 300px;
+	        background: #ffffff;
+	        margin-bottom: 3px;
+	    }
+	    .demo-content.bg-alt{
+	        background: #fce3ec;
+	    }
+		.list-group{
+			width: 300px;
+		}
+		.box{
+			width: 110%;
+		}
+	</style>
+  <title>BUGANVILLA</title>
+</head>
+
+<body>
+<!-- Contenedor -->
+<div id="contenedor">
+<div class="row">
+  <!-- Cabecera -->
+  <div class="col-md-6">
+  	<div class="demo-content">
+	  <div id="cabecera">
+	  	<div class="page-header">
+    		<h1><span class="glyphicon glyphicon-grain"></span> <span class="glyphicon glyphicon-grain"></span><small>Festival de Música </small>Buganvilla
+    		 <span class="glyphicon glyphicon-grain"></span> <span class="glyphicon glyphicon-grain"></span></span></h1>
+		</div>
+	      <div class="box">
+	      	<img src="/static/imagenes/Buganvillac.jpg" class="img-responsive">
+	      </div>
+	  </div>
+	</div>
+  </div>
+
+  <!-- /Cabecera -->
+  
+  <!-- Menu principal -->
+
+  <div class="col-md-6">
+	  <div class="demo-content bg-alt">
+	  {% if usuario %}
+	  	<div class="page-header">
+    		<h1><small>¡Bienvenidx </small>{{usuario}}!</h1>
+		</div>
+	
+	  	<div class="container">
+		    <form action ="/logout">
+			    <button type="submit" value="Logout">Logout</button>
+			</form>
+	  	</div>
+	  {% else %}
+	    <div class="page-header">
+    		<h1>¡Bienvenidx!</h1>
+    		<form action ="/signin" method="post">
+				<button type="submit" class="btn btn-default" value="Signin">sign in</button>
+			</form>
+		</div>
+		    <form action ="/login" method ="post">
+		    	<div class="form-group">
+			    	<label for="inputUser"><b>usuario</b></label>
+			    	<input type="user" class="form-control" placeholder="introduce usuario" name="username" required>
+			    </div>
+			    <div class="form-group">
+			    	<label for="inputPassword"><b>contraseña</b></label>
+			    	<input type="password" class="form-control" placeholder="introduce contraseña" name="password" required>
+			    </div>
+			    <button type="submit" class="btn btn-default btn-block" value="Login">login</button>
+			</form>
+			
+			{% if error %}
+				<p class="error"><strong>Ups!:</strong> {{ error }} </p>
+			{% endif %}
+	  {% endif %}
+	  </div>
+	</div>
+</div>
+
+<div class ="row">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+		    <h2>¡Últimas entradas a la venta!</h2>
+		    <div class="panel-body">No te quedes sin venir...
+		    <a href="Entradas" class="btn btn-default">Quiero ir</a></div>
+		</div>
+	</div>
+</div>
+<div class ="row">
+    <!-- Menu principal -->
+    <div class="col-md-4">
+	    <div class="row">
+	    	<div class="col-md-12">
+		    	<div class="demo-content bg-alt">
+
+				    <div id="menu">
+				      <h3>Menú</h3>
+				      	<div class="list-group">
+					      <ul id="menu_principal">
+					        <p>
+					          <a href="/" class="list-group-item">
+					          <span class="glyphicon glyphicon-grain"></span>Buganvilla</a>
+					        </p>
+					        <p>
+					          <a href="Programacion" class="list-group-item">
+					          <span class="glyphicon glyphicon-headphones"></span>Programación</a>
+					        </p>
+					        <p>
+					           <a href="Informacion"class="list-group-item">
+					          <span class="glyphicon glyphicon-question-sign"></span>Información</a>
+					        </p>
+					        <p>
+					          <a href="Entradas"class="list-group-item">
+					          <span class="glyphicon glyphicon-shopping-cart"></span>Entradas</a>
+					        </p>
+					        <p>
+					        	<a href="Perfil"class="list-group-item">
+					          <span class="glyphicon glyphicon-user"></span>Perfil</a>
+					        </p>
+					      </ul>
+					    </div>
+				    </div>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="demo-content bg-alt">
+				  	{% if usuario %}
+				    <div id="noticias">
+				      <h3>Recientemente...</h3>
+				      {% if pags %}
+				      	{% for pag in pags %}
+				      		<p><a href= {{ pag }}>{{ pag }}</a></p>
+				      	{% endfor %}
+				      {% endif %}
+				    </div>
+				    <!-- /Noticias -->
+				    {% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+  <!-- /Lateral -->
+ <div class="col-md-8">
+  	<div class="demo-content">
+		<div id="contenido">
+		  
+		  <!-- Principal -->
+
+		  {% block content %}
+		  
+		  	<h1><p class="text-center"><strong>27 28 29</strong> de MARZO 2017</p></h1>
+		  	<!--<img src="/static/imagenes/buganvilla.jpg" class="img-rounded">-->
+		  	<div class="embed-responsive embed-responsive-16by9">
+		  		<iframe class="embed-responsive-item" src="//www.youtube.com/embed/wg9t5GkJRJQ"></iframe>
+			</div>
+		  
+		  {% endblock %}
+
+		  <!-- /Principal -->
+		</div>
+	</div>
+  </div>
+</div>
+
+  <!-- /Contenido -->
+  
+    <div class="clear"></div>
+  
+    <!-- Pie -->
+  <div id="pie">
+    <span class="enlaces">
+      <a href="https://www.facebook.com/pitchforkparis">Facebook</a> |
+      <a href="https://www.instagram.com/pitchforkparis">Instagram</a>
+    </span>
+    
+    <span class="copyright">
+       © 2016 Condé Nast. All rights reserved. Use of this site constitutes acceptance of our User Agreement and Privacy Policy. The material on this site may not be reproduced, distributed, transmitted, cached or otherwise used, except with prior written permission of Condé Nast.
+    </span>
+    <div class="clear"></div>
+  </div>
+  <!-- /Pie -->
+
+</div>
+<!-- /Contenedor -->
+
+
+</body></html>
