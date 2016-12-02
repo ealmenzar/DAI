@@ -19,11 +19,12 @@ except pymongo.errors.ConnectionFailure as e:
 #print(conn)
 
 db = conn.test
-#restaurants = db.primer_dataset
-cursor = db.restaurants.find()
+
+#cursor = db.restaurants.find()
+
 
 #for doc in cursor:
- #   print(doc)
+   #print(doc)
 
 
 @app.route('/')
@@ -181,14 +182,14 @@ def addrestaurant():
                    "name": name,
                    "restaurant_id": id
                    }
-            restaurants.insert(dic)
+            db.restaurants.insert(dic)
             return render_template('agregarrestaurante.html', usuario=session['username'], pags=session['paginas'])
         return render_template('agregarrestaurante.html', usuario=session['username'], pags=session['paginas'])
     else:
         return render_template('formulario.html')
 
 @app.route("/BuscarRestaurante", methods=['GET', 'POST'])
-def lookforrest():
+def buscarrestaurante():
     if 'username' in session:
         s = session['paginas']
         s.insert(0, 'BuscarRestaurante')
@@ -198,13 +199,18 @@ def lookforrest():
 
         if request.method == 'POST':
             name = str(request.form['name'])
+            barrio = str(request.form['barrio'])
+            dic = {}
+            if name != "":
+                dic['name'] = name
+            if barrio != "":
+                dic['borough'] = barrio
+            r = db.restaurants.find(dic)
 
-            dic = {"name": name}
-            R = restaurants.find(dic)
-            print(R)
             return render_template('buscarrestaurante.html', usuario=session['username'],
-                                   pags=session['paginas'], restaurante=R)
-        return render_template('buscarrestaurante.html', usuario=session['username'], pags=session['paginas'])
+                                   pags=session['paginas'], restaurante=r)
+        return render_template('buscarrestaurante.html', usuario=session['username'],
+                               pags=session['paginas'])
     else:
         return render_template('formulario.html')
 

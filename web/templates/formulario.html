@@ -5,51 +5,50 @@
   	{% if error %}
 		<p class="error"><strong>Error:</strong> {{ error }}
 	{% endif %}
-	<form class="form-horizontal">
-		<form action ="/" method ="post">
+	<form action ="/formulario" method ="post">
+		<form class="form-horizontal">
+
 			<div class="form-goup">
-			    <label for="inputUser" class="control-label col-xs-2">Usuario</label>
+			    <label for="username" class="control-label col-xs-2">Usuario</label>
 			    <div class="col-xs-10">
-	            	<input type="username" class="form-control" id="inputUser" placeholder="nombre de usuario">
+	            	<input type="text" class="form-control" id="username" placeholder="nombre de usuario" name="username" required>
 	        	</div>
 	        </div>
 
 			<div class="form-group">
-		        <label for="inputPassword" class="control-label col-xs-2">Password</label>
+		        <label for="password" class="control-label col-xs-2">Password</label>
 		        <div class="col-xs-10">
-		            <input type="password" class="form-control" id="inputPassword" placeholder="contraseña">
+		            <input type="text" class="form-control" id="password" placeholder="contraseña" name="password" required>
 		        </div>
 	   		</div>
 
 			<div class="form-group">
-		        <label for="inputName" class="control-label col-xs-2">Nombre</label>
+		        <label for="name" class="control-label col-xs-2">Nombre</label>
 		        <div class="col-xs-10">
-		            <input type="name" class="form-control" id="inputName" placeholder="nombre">
+		            <input type="text" class="form-control" id="name" placeholder="nombre" name="name" required>
 		        </div>
 	   		</div>
 
 			<div class="form-group">
-		        <label for="inputFirstName" class="control-label col-xs-2">Primer apellido</label>
+		        <label for="lastname" class="control-label col-xs-2">Primer apellido</label>
 		        <div class="col-xs-10">
-		            <input type="firstname" class="form-control" id="inputFirstName" placeholder="primer apellido">
+		            <input type="text" class="form-control" id="lastname" placeholder="primer apellido" name="lastname" required>
 		        </div>
 	   		</div>
 
 	   		<div class="form-group">
-		        <label for="inputSecondName" class="control-label col-xs-2">Segundo apellido</label>
+		        <label for="lastlastname" class="control-label col-xs-2">Segundo apellido</label>
 		        <div class="col-xs-10">
-		            <input type="secondname" class="form-control" id="inputSecondName" placeholder="segundo apellido">
+		            <input type="text" class="form-control" id="lastlastname" placeholder="segundo apellido" name="lastlastname" required>
 		        </div>
 	   		</div>
 
-				<p><input name="sexo" type="radio" value="masculino"/> Hombre</p>
-				<p><input name="sexo" type="radio" value="femenino"/> Mujer</p>
+		    <div class="form-group">
+		        <div class="col-xs-offset-2 col-xs-10">
+		            <button type="submit" class="btn btn-default btn-lg btn-block" value="Signin">Sign in</button>
+		        </div>
+    		</div>
 
-			    <div class="form-group">
-			        <div class="col-xs-offset-2 col-xs-10">
-			            <button type="submit" class="btn btn-default btn-lg btn-block">Sign in</button>
-			        </div>
-	    		</div>
     	</form>
 	</form>
 {% endblock %}

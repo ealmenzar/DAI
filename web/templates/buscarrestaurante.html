@@ -1,40 +1,54 @@
 {% extends "web.html" %}
 {% block content %}
 
+<form action ="/BuscarRestaurante" method ="post">
+
 {% if restaurante %}
 	<div class="panel panel-default">
 	<div class="panel-heading"><h3> Los restaurantes encontrados son: </h3></div>
 	<div class="panel-body"> 
 	<small>
 		{% for r in restaurante %}
-			<p><h3>{{ r }}</h3></p>
+			<p><h3>{{ r['name'] }}</h3></p>
+			<p>Cocina: {{ r['cuisine'] }}</p>
+			<p>Calle: {{ r['address']['street'] }}</p>
+			<p>Barrio: {{ r['borough'] }}</p>
 		{% endfor %}
 	</small>
 	</div>
 	</div>
 {% endif %}
-<form action ="/buscarrestaurante" method ="post">
-<div class="panel panel-default">
-<div class="panel-heading"><h3> Busca un restaurante: </h3></div>
-<div class="panel-body"> 
-<small>
-	<form class="form-horizontal">
 
-	<div class="form-goup">
-	    <label for="name" class="control-label col-xs-2">Nombre del restaurante</label>
-	    <div class="col-xs-10">
-	    	<input type="name" class="form-control" id="name" placeholder="Nombre del restaurante">
+	<div class="panel panel-default">
+		<div class="panel-heading"><h3> Busca un restaurante: </h3></div>
+		<div class="panel-body"> 
+		<small>
+			<form class="form-horizontal">
+
+			<div class="form-goup">
+			    <label for="name" class="control-label col-xs-2">Nombre</label>
+			    <div class="col-xs-10">
+			    	<input type="text" class="form-control" id="name" placeholder="Nombre del restaurante" name="name">
+				</div>
+			</div>
+
+			<div class="form-goup">
+			    <label for="barrio" class="control-label col-xs-2">Barrio</label>
+			    <div class="col-xs-10">
+			    	<input type="text" class="form-control" id="barrio" placeholder="Barrio del restaurante" name="barrio">
+				</div>
+			</div>
+
+			<div class="form-group">
+			    <div class="col-xs-offset-2 col-xs-10">
+			        <button type="submit" class="btn btn-default btn-lg btn-block" value="OK">Buscar</button>
+			    </div>
+			</div>
+
+			</form>
+		</small>
 		</div>
 	</div>
-	<div class="form-group">
-	    <div class="col-xs-offset-2 col-xs-10">
-	        <button type="submit" class="btn btn-default btn-lg btn-block">Buscar</button>
-	    </div>
-	</div>
 
-	</form>
-</small>
-</div>
-</div>
 </form>
 {% endblock %}
