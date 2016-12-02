@@ -1,0 +1,82 @@
+{% extends "web.html" %}
+{% block content %}
+
+<div class="panel panel-default">
+<div class="panel-heading"><h3> Agrega un restaurante: </h3></div>
+<div class="panel-body"> <small>
+	<form class="form-horizontal">
+
+	<div class="form-goup">
+	    <label for="building" class="control-label col-xs-2">Edificio</label>
+	    <div class="col-xs-10">
+	    	<input type="building" class="form-control" id="building" placeholder="edificio">
+		</div>
+	</div>
+
+	<div class="form-goup">
+	    <label for="coord1" class="control-label col-xs-2">Primera coordenada</label>
+	    <div class="col-xs-10">
+	    	<input type="coord1" class="form-control" id="coord1" placeholder="primera coordenada">
+		</div>
+	</div>
+
+	<div class="form-goup">
+	    <label for="coord2" class="control-label col-xs-2">Segunda coordenada</label>
+	    <div class="col-xs-10">
+	    	<input type="coord2" class="form-control" id="coord2" placeholder="segunda coordenada">
+		</div>
+	</div>
+
+	<div class="form-goup">
+	    <label for="street" class="control-label col-xs-2">Calle del restaurante</label>
+	    <div class="col-xs-10">
+	    	<input type="street" class="form-control" id="street" placeholder="calle">
+		</div>
+	</div>
+
+	<div class="form-goup">
+	    <label for="zipcode" class="control-label col-xs-2">Código postal</label>
+	    <div class="col-xs-10">
+	    	<input type="zipcode" class="form-control" id="zipcode" placeholder="código postal">
+		</div>
+	</div>
+
+	<div class="form-goup">
+	    <label for="borough" class="control-label col-xs-2">Barrio</label>
+	    <div class="col-xs-10">
+	    	<input type="borough" class="form-control" id="borough" placeholder="barrio">
+		</div>
+	</div>
+
+	<div class="form-goup">
+	    <label for="cuisine" class="control-label col-xs-2">Jefe de cocina</label>
+	    <div class="col-xs-10">
+	    	<input type="cuisine" class="form-control" id="cuisine" placeholder="jefe de cocina">
+		</div>
+	</div>
+
+	<div class="form-goup">
+	    <label for="name" class="control-label col-xs-2">Nombre del restaurante</label>
+	    <div class="col-xs-10">
+	    	<input type="name" class="form-control" id="name" placeholder="nombre del restaurante">
+		</div>
+	</div>
+
+	<div class="form-goup">
+	    <label for="id" class="control-label col-xs-2">ID del restaurante</label>
+	    <div class="col-xs-10">
+	    	<input type="id" class="form-control" id="id" placeholder="ID del restaurante">
+		</div>
+	</div>
+
+	<div class="form-group">
+	    <div class="col-xs-offset-2 col-xs-10">
+	        <button type="submit" class="btn btn-default btn-lg btn-block">Guardar</button>
+	    </div>
+	</div>
+
+	</form>
+	</small></div>
+</div>
+
+{% endblock %}
