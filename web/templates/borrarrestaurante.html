@@ -1,0 +1,49 @@
+{% extends "web.html" %}
+{% block content %}
+
+{% if r %}
+
+<div class ="row">
+	<div class="col-sm-6">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h3> Estos son todos los restaurantes: </h3></div>
+			<div class="panel-body"> 
+			<small>
+				{% for rest in r %}
+					<p>{{ rest['name'] }}</p>
+				{% endfor %}
+			</small>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<form action ="/BorrarRestaurante" method ="post">
+			<div class="panel panel-default">
+			<div class="panel-heading"><h3> Borra un restaurante: </h3></div>
+			<div class="panel-body"> 
+			<small>
+			<form class="form-horizontal">
+
+				<div class="form-goup">
+				    <label for="name" class="control-label col-xs-2">Nombre</label>
+				    <div class="col-xs-10">
+				    	<input type="text" class="form-control" id="name" placeholder="Nombre del restaurante" name="name">
+					</div>
+				</div>
+
+				<div class="form-group">
+			    <div class="col-xs-offset-2 col-xs-10">
+			        <button type="submit" class="btn btn-default btn-lg btn-block" value="OK">Borrar</button>
+			    </div>
+				</div>
+			</form>
+			</small>
+			</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+{% endif %}
+
+{% endblock %}

@@ -1,23 +1,45 @@
 {% extends "web.html" %}
 {% block content %}
 
-<form action ="/BuscarRestaurante" method ="post">
+
 
 {% if restaurante %}
 	<div class="panel panel-default">
+	
 	<div class="panel-heading"><h3> Los restaurantes encontrados son: </h3></div>
 	<div class="panel-body"> 
-	<small>
-		{% for r in restaurante %}
-			<p><h3>{{ r['name'] }}</h3></p>
+
+	<button class="btn btn-default 1">Pulsa para aumentar</button>
+	<button class="btn btn-default 2">Pulsa para disminuir</button>
+
+		
+	{% for r in restaurante %}
+		<p><h3>{{ r['name'] }}</h3></p>
 			<p>Cocina: {{ r['cuisine'] }}</p>
 			<p>Calle: {{ r['address']['street'] }}</p>
 			<p>Barrio: {{ r['borough'] }}</p>
-		{% endfor %}
-	</small>
+	{% endfor %}
+	
+	<script>
+	$(document).ready(function(){
+		// Incrementar el tamaño de la fuente
+		var tam = ("p").css("font-size")
+		$("btn btn-default 1").click(function(){
+			$("p").css("font-size", "200%");
+		});
+		// Disminuir el tamaño de la fuente
+		var tam = ("p").css("font-size")
+		$("btn btn-default 2").click(function(){
+			$("p").css("font-size", "200%");
+		});
+	});
+    </script>
+
 	</div>
 	</div>
 {% endif %}
+
+<form action ="/BuscarRestaurante" method ="post">
 
 	<div class="panel panel-default">
 		<div class="panel-heading"><h3> Busca un restaurante: </h3></div>
