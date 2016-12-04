@@ -1,3 +1,4 @@
+<div id="pagination">
 {% extends "web.html" %}
 {% block content %}
 
@@ -8,16 +9,47 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3> Estos son todos los restaurantes: </h3></div>
 			<div class="panel-body"> 
-			<small>
-				{% for rest in r %}
-					<p>{{ rest['name'] }}</p>
-				{% endfor %}
-			</small>
+				
+				<small>
+
+					{% for rest in r.skip(pag - 20).limit(20) %}
+						<p>{{ rest['name'] }}</p>
+					{% endfor %}
+
+				</small>
+				{% if pag == 20 %}
+				<ul class="pager">
+					<button id="down" disabled=""> < </button>
+					<button id="up"> > </button>
+				</ul>
+				{% else %}
+				<ul class="pager">
+					<button id="down" > < </button>
+					<button id="up"> > </button>
+				</ul>
+				{% endif %}
+				
 			</div>
 		</div>
 	</div>
+
+	<script>
+	$(document).ready(function(){
+	    $("#up").click(function(){
+	        $.get("http://localhost:8080/BorrarRestaurante/"+ {{ pag + 20 }}, function(newpag){
+	        	$("#pagination").html(newpag)
+	        });
+	    });
+	    $("#down").click(function(){
+	        $.get("http://localhost:8080/BorrarRestaurante/"+ {{ pag - 20 }}, function(newpag){
+	        	$("#pagination").html(newpag)
+	        });
+	    });
+	});
+    </script>
+
 	<div class="col-sm-6">
-		<form action ="/BorrarRestaurante" method ="post">
+		<form action ="/BorrarRestaurante/20" method ="post">
 			<div class="panel panel-default">
 			<div class="panel-heading"><h3> Borra un restaurante: </h3></div>
 			<div class="panel-body"> 
@@ -47,3 +79,4 @@
 {% endif %}
 
 {% endblock %}
+</div>

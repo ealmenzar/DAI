@@ -214,12 +214,13 @@ def buscarrestaurante():
     else:
         return render_template('formulario.html')
 
-@app.route("/BorrarRestaurante", methods=['GET', 'POST'])
-def borrarrestaurante():
+@app.route("/BorrarRestaurante/<pagina>", methods=['GET', 'POST'])
+def borrarrestaurante(pagina):
     if 'username' in session:
         s = session['paginas']
-        s.insert(0, 'BorrarRestaurante')
+        s.insert(0, 'BorrarRestaurante/'+pagina)
         session['paginas'] = s
+        p = int(pagina)
         if len(s) == 4:
             s.remove(s[3])
         r = db.restaurants.find()
@@ -230,9 +231,9 @@ def borrarrestaurante():
             db.restaurants.remove(dic)
             r = db.restaurants.find()
             return render_template('borrarrestaurante.html', usuario=session['username'],
-                                   pags=session['paginas'], r=r)
+                                   pags=session['paginas'], r=r, pag=p)
         return render_template('borrarrestaurante.html', usuario=session['username'],
-                               pags=session['paginas'], r=r)
+                               pags=session['paginas'], r=r, pag=p)
     else:
         return render_template('formulario.html')
 
