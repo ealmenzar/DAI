@@ -1,0 +1,66 @@
+{% extends "web.html" %}
+{% block content %}
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        // Build the chart
+        Highcharts.chart('container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Restaurantes por Barrios'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Brooklyn',
+                    y: {{ barrios['Brooklyn'] * 100 / barrios['total'] }}
+                }, {
+                    name: 'Queens',
+                    y: {{ barrios['Queens'] * 100 / barrios['total'] }}
+                }, {
+                    name: 'Staten Island',
+                    y: {{ barrios['Staten'] * 100 / barrios['total'] }}
+                }, {
+                    name: 'Bronx',
+                    y: {{ barrios['Bronx'] * 100 / barrios['total'] }}
+                }, {
+                    name: 'Manhattan',
+                    y: {{ barrios['Manhattan'] * 100 / barrios['total'] }}
+                }, {
+                    name: 'Missing',
+                    y: {{ barrios['Missing'] * 100 / barrios['total'] }}
+                }]
+            }]
+        });
+    });
+
+</script>
+
+{% endblock %}

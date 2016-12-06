@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template, request, session, url_for, redirect
 import shelve
 import pymongo
+import feedparser
 app = Flask(__name__)
 
 app.debug = True
@@ -35,7 +36,10 @@ def index():
         session['paginas'] = s
         if len(s) == 4:
             s.remove(s[3])
-        return render_template('web.html', usuario=session['username'], pags=session['paginas'])
+        rss_url = "http://www.binaural.es/feed/"
+        feed = feedparser.parse(rss_url)
+        news = feed.entries
+        return render_template('web.html', usuario=session['username'], pags=session['paginas'], news=news)
     return render_template('web.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -84,7 +88,10 @@ def prog():
         session['paginas'] = s
         if len(s) == 4:
             s.remove(s[3])
-        return render_template('child.html', usuario=session['username'], pags=session['paginas'])
+        rss_url = "http://www.binaural.es/feed/"
+        feed = feedparser.parse(rss_url)
+        news = feed.entries
+        return render_template('child.html', usuario=session['username'], pags=session['paginas'], news=news)
     return render_template('child.html')
 
 @app.route('/Informacion')
@@ -95,7 +102,10 @@ def info():
         session['paginas'] = s
         if len(s) == 4:
             s.remove(s[3])
-        return render_template('info.html', usuario=session['username'], pags=session['paginas'])
+        rss_url = "http://www.binaural.es/feed/"
+        feed = feedparser.parse(rss_url)
+        news = feed.entries
+        return render_template('info.html', usuario=session['username'], pags=session['paginas'], news=news)
     return render_template('info.html')
 
 @app.route('/Entradas')
@@ -106,7 +116,10 @@ def tickets():
         session['paginas'] = s
         if len(s) == 4:
             s.remove(s[3])
-        return render_template('tickets.html', usuario=session['username'], pags=session['paginas'])
+        rss_url = "http://www.binaural.es/feed/"
+        feed = feedparser.parse(rss_url)
+        news = feed.entries
+        return render_template('tickets.html', usuario=session['username'], pags=session['paginas'], news=news)
     return render_template('tickets.html')
 
 @app.route('/Perfil', methods=['GET', 'POST'])
@@ -118,6 +131,9 @@ def profile():
         session['paginas'] = s
         if len(s) == 4:
             s.remove(s[3])
+        rss_url = "http://www.binaural.es/feed/"
+        feed = feedparser.parse(rss_url)
+        news = feed.entries
         if request.method == 'POST':
             data[u]['pass'] = request.form['password']
             data[u]['name'] = request.form['name']
@@ -125,11 +141,11 @@ def profile():
             data[u]['lastlastname'] = request.form['lastlastname']
             return render_template('profile.html', usuario=session['username'], pags=session['paginas'],
                                    pwd=data[u]['user'], name=data[u]['name'],
-                                   lastname=data[u]['lastname'], lastlastname=data[u]['lastlastname'])
+                                   lastname=data[u]['lastname'], lastlastname=data[u]['lastlastname'], news=news)
 
         return render_template('profile.html', usuario=session['username'], pags=session['paginas'],
                                pwd=data[u]['pass'], name=data[u]['name'],
-                               lastname=data[u]['lastname'], lastlastname=data[u]['lastlastname'])
+                               lastname=data[u]['lastname'], lastlastname=data[u]['lastlastname'], news=news)
     else:
         return render_template('formulario.html')
 
@@ -141,8 +157,10 @@ def restaurants():
         session['paginas'] = s
         if len(s) == 4:
             s.remove(s[3])
-
-        return render_template('restaurantes.html', usuario=session['username'], pags=session['paginas'])
+        rss_url = "http://www.binaural.es/feed/"
+        feed = feedparser.parse(rss_url)
+        news = feed.entries
+        return render_template('restaurantes.html', usuario=session['username'], pags=session['paginas'],news=news)
     return render_template('formulario.html')
 
 @app.route('/AgregarRestaurante', methods=['GET', 'POST'])
@@ -153,6 +171,9 @@ def addrestaurant():
         session['paginas'] = s
         if len(s) == 4:
             s.remove(s[3])
+        rss_url = "http://www.binaural.es/feed/"
+        feed = feedparser.parse(rss_url)
+        news = feed.entries
 
         if request.method == 'POST':
             building = int(request.form['building'])
@@ -183,8 +204,8 @@ def addrestaurant():
                    "restaurant_id": id
                    }
             db.restaurants.insert(dic)
-            return render_template('agregarrestaurante.html', usuario=session['username'], pags=session['paginas'])
-        return render_template('agregarrestaurante.html', usuario=session['username'], pags=session['paginas'])
+            return render_template('agregarrestaurante.html', usuario=session['username'], pags=session['paginas'], news=news)
+        return render_template('agregarrestaurante.html', usuario=session['username'], pags=session['paginas'], news=news)
     else:
         return render_template('formulario.html')
 
@@ -196,6 +217,9 @@ def buscarrestaurante():
         session['paginas'] = s
         if len(s) == 4:
             s.remove(s[3])
+        rss_url = "http://www.binaural.es/feed/"
+        feed = feedparser.parse(rss_url)
+        news = feed.entries
 
         if request.method == 'POST':
             name = str(request.form['name'])
@@ -208,9 +232,9 @@ def buscarrestaurante():
             r = db.restaurants.find(dic)
 
             return render_template('buscarrestaurante.html', usuario=session['username'],
-                                   pags=session['paginas'], restaurante=r)
+                                   pags=session['paginas'], restaurante=r, news=news)
         return render_template('buscarrestaurante.html', usuario=session['username'],
-                               pags=session['paginas'])
+                               pags=session['paginas'], news=news)
     else:
         return render_template('formulario.html')
 
@@ -223,6 +247,10 @@ def borrarrestaurante(pagina):
         p = int(pagina)
         if len(s) == 4:
             s.remove(s[3])
+        rss_url = "http://www.binaural.es/feed/"
+        feed = feedparser.parse(rss_url)
+        news = feed.entries
+
         r = db.restaurants.find()
         if request.method == 'POST':
             name = str(request.form['name'])
@@ -231,11 +259,46 @@ def borrarrestaurante(pagina):
             db.restaurants.remove(dic)
             r = db.restaurants.find()
             return render_template('borrarrestaurante.html', usuario=session['username'],
-                                   pags=session['paginas'], r=r, pag=p)
+                                   pags=session['paginas'], r=r, pag=p, news=news)
         return render_template('borrarrestaurante.html', usuario=session['username'],
-                               pags=session['paginas'], r=r, pag=p)
+                               pags=session['paginas'], r=r, pag=p, news=news)
     else:
         return render_template('formulario.html')
+
+@app.route("/Grafica")
+def grafica():
+    if 'username' in session:
+        s = session['paginas']
+        s.insert(0, 'Grafica')
+        session['paginas'] = s
+        if len(s) == 4:
+            s.remove(s[3])
+        rss_url = "http://www.binaural.es/feed/"
+        feed = feedparser.parse(rss_url)
+        news = feed.entries
+
+        brooklyn = db.restaurants.find({'borough': 'Brooklyn'})
+        queens = db.restaurants.find({'borough': 'Queens'})
+        staten = db.restaurants.find({'borough': 'Staten Island'})
+        bronx = db.restaurants.find({'borough': 'Bronx'})
+        manhattan = db.restaurants.find({'borough': 'Manhattan'})
+        missing = db.restaurants.find({'borough': 'Missing'})
+
+        nbrooklyn = brooklyn.count()
+        nqueens = queens.count()
+        nstaten = staten.count()
+        nbronx = bronx.count()
+        nmanhattan = manhattan.count()
+        nmissing = missing.count()
+        total = nbrooklyn + nqueens + nstaten + nbronx + nmanhattan + nmissing
+
+        print(nstaten)
+
+        dic = {'Brooklyn':nbrooklyn, 'Queens':nqueens, 'Staten':nstaten,
+               'Bronx':nbronx, 'Manhattan':nmanhattan, 'Missing':nmissing, 'total': total}
+
+        return render_template('grafica.html', usuario=session['username'],
+                                   pags=session['paginas'], news=news, barrios=dic)
 
 @app.route('/logout')
 def logout():

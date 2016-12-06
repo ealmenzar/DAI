@@ -189,8 +189,25 @@
 </div>
 
   <!-- /Contenido -->
-  
-    <div class="clear"></div>
+<div class="row">
+	<div class="col-sm-8">
+	<div class="panel panel-default">
+		
+		<h3>BINAURAL<small>Últimas noticias</small></h3>
+			<dl class="dl-horizontal">
+			{% for new in news %}
+				<h5><li><a href= {{ new.link }}>{{ new.title }}</a><small>{{ new.published }}</small></li></h5>
+			{% endfor %}
+	</div>
+	</div>
+
+	<div class="col-sm-4">
+		<iframe src="https://embed.spotify.com/?uri=spotify:user:binaural_es:playlist:1IS9QwQvnrmCBhaO6upOwu" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+	</div>
+	
+
+</div> 
+
   
     <!-- Pie -->
   <div id="pie">
