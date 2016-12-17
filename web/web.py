@@ -3,6 +3,7 @@ from flask import render_template, request, session, url_for, redirect
 import shelve
 import pymongo
 import feedparser
+#import tweepy
 app = Flask(__name__)
 
 app.debug = True
@@ -17,15 +18,8 @@ try:
 except pymongo.errors.ConnectionFailure as e:
     print("Could not connect to MongoDB: %s" % e)
 
-#print(conn)
-
 db = conn.test
 
-#cursor = db.restaurants.find()
-
-
-#for doc in cursor:
-   #print(doc)
 
 
 @app.route('/')
@@ -193,13 +187,7 @@ def addrestaurant():
                         "zipcode": zipcode},
                    "borough": borough,
                    "cuisine": cuisine,
-                   "grades": [
-                   #    {"date": {"$date": 1393804800000}, "grade": "A", "score": 2},
-                   #    {"date": {"$date": 1378857600000}, "grade": "A", "score": 6},
-                   #    {"date": {"$date": 1358985600000}, "grade": "A", "score": 10},
-                   #    {"date": {"$date": 1322006400000}, "grade": "A", "score": 9},
-                   #    {"date": {"$date": 1299715200000}, "grade": "B", "score": 14}
-                   ],
+                   "grades": [],
                    "name": name,
                    "restaurant_id": id
                    }
@@ -223,16 +211,15 @@ def buscarrestaurante():
 
         if request.method == 'POST':
             name = str(request.form['name'])
-            barrio = str(request.form['barrio'])
-            dic = {}
-            if name != "":
-                dic['name'] = name
-            if barrio != "":
-                dic['borough'] = barrio
-            r = db.restaurants.find(dic)
+            r = db.restaurants.find({'name': name})
+            coord = []
+            rest = []
+            for rr in r:
+                coord.append([rr['address']['coord'][0], rr['address']['coord'][1]])
+                rest.append([rr['name'], rr['cuisine'], rr['address']['street'], rr['borough']])
 
             return render_template('buscarrestaurante.html', usuario=session['username'],
-                                   pags=session['paginas'], restaurante=r, news=news)
+                                   pags=session['paginas'], restaurante=rest, coord=coord, news=news)
         return render_template('buscarrestaurante.html', usuario=session['username'],
                                pags=session['paginas'], news=news)
     else:
@@ -242,7 +229,7 @@ def buscarrestaurante():
 def borrarrestaurante(pagina):
     if 'username' in session:
         s = session['paginas']
-        s.insert(0, 'BorrarRestaurante/'+pagina)
+        s.insert(0, 'BorrarRestaurante/20')
         session['paginas'] = s
         p = int(pagina)
         if len(s) == 4:
@@ -299,6 +286,30 @@ def grafica():
 
         return render_template('grafica.html', usuario=session['username'],
                                    pags=session['paginas'], news=news, barrios=dic)
+    else:
+        return render_template('formulario.html')
+
+@app.route('/Mapa')
+def mapa():
+    if 'username' in session:
+        s = session['paginas']
+        s.insert(0, 'Mapa')
+        session['paginas'] = s
+        if len(s) == 4:
+            s.remove(s[3])
+        rss_url = "http://www.binaural.es/feed/"
+        feed = feedparser.parse(rss_url)
+        news = feed.entries
+
+        r = db.restaurants.find({ "grades.score": { '$gt': 60 } })
+        rdic = []
+        for rr in r:
+            rdic.append([rr['address']['coord'][0], rr['address']['coord'][1]])
+
+        return render_template('mapa.html', usuario=session['username'],
+                               pags=session['paginas'], news=news, r=rdic)
+    else:
+        return render_template('formulario.html')
 
 @app.route('/logout')
 def logout():
@@ -309,3 +320,4 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 if __name__=='__main__':
     app.run(host='0.0.0.0')
+

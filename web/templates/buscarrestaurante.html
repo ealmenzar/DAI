@@ -4,26 +4,27 @@
 
 
 {% if restaurante %}
+<div class ="row">
+	<div class="col-sm-12">
 	<div class="panel panel-default">
 	
 		<div class="panel-heading"><h3> Los restaurantes encontrados son: </h3></div>
-			<div class="panel-body"> 
+		<button class="btn btn-default" id="aum">Pulsa para aumentar</button>
+		<button class="btn btn-default" id="dis">Pulsa para disminuir</button>
 
-			<button class="btn btn-default" id="aum">Pulsa para aumentar</button>
-			<button class="btn btn-default" id="dis">Pulsa para disminuir</button>
-
-				
+		<div style="height:400px; width:800px; border:1px; overflow:auto;">
 			{% for r in restaurante %}
-				<p><h3>{{ r['name'] }}</h3></p>
+				<p><h3>{{ r[0] }}</h3></p>
 				<div id="maxmin">
-					<p>Cocina: {{ r['cuisine'] }}</p>
-					<p>Calle: {{ r['address']['street'] }}</p>
-					<p>Barrio: {{ r['borough'] }}</p>
+					<p>Cocina: {{ r[1] }}</p>
+					<p>Calle: {{ r[2] }}</p>
+					<p>Barrio: {{ r[3] }}</p>
 				</div>
 			{% endfor %}
-
-			</div>
+		</div>
 	</div>
+	</div>
+
 
 <script>
 $(document).ready(function(){
@@ -37,6 +38,46 @@ $(document).ready(function(){
 	});
 });
 </script>
+
+</div>
+<div class=row>
+<div class="col-sm-12">
+
+	<div id="bodymap">
+	<div id="map" style="width:600px;height:400px;background:#ffffff"></div>
+	</div>
+</div>
+
+	<script>
+
+		var map;
+		var marker;
+		function initMap() {
+		var rest = {{ coord }};
+
+		  map = new google.maps.Map(document.getElementById('map'), {
+		    center: {lat: rest[0][1], lng: rest[0][0]},
+		    zoom: 15,
+		    mapTypeId: google.maps.MapTypeId.ROADMAP
+		  });
+		  google.maps.event.addDomListener(window, 'load', initMap);
+
+		  for (var i = 0; i < rest.length; i++) {
+		  	marker = new google.maps.Marker({
+	          map: map,
+	          position: {lat: rest[i][1], lng: rest[i][0]},
+	          title: " "
+	        });
+	        marker.setMap(map)
+		  }
+		}
+
+	</script>
+
+	<script async defer
+	  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnLt9PekOYFHHL_-lWQW5hbxJq9kMLnOI&callback=initMap">
+	</script>
+</div>
 
 {% endif %}
 
@@ -55,13 +96,6 @@ $(document).ready(function(){
 				</div>
 			</div>
 
-			<div class="form-goup">
-			    <label for="barrio" class="control-label col-xs-2">Barrio</label>
-			    <div class="col-xs-10">
-			    	<input type="text" class="form-control" id="barrio" placeholder="Barrio del restaurante" name="barrio">
-				</div>
-			</div>
-
 			<div class="form-group">
 			    <div class="col-xs-offset-2 col-xs-10">
 			        <button type="submit" class="btn btn-default btn-lg btn-block" value="OK">Buscar</button>
@@ -74,5 +108,6 @@ $(document).ready(function(){
 	</div>
 
 </form>
+
 
 {% endblock %}

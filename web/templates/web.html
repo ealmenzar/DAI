@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="../static/bootstrap/css/bootstrap-theme.min.css">
     <style type="text/css">
 	    /* Some custom styles to beautify this example */
+	    body{
+	    	margin: 0;
+	    }
 	    .demo-content{
 	        padding: 10px;
 	        font-size: 15px;
@@ -30,6 +33,15 @@
 		}
 		.box{
 			width: 110%;
+		}
+		#map{
+			height:100%;
+		}
+		#bodymap{
+			height:100%;
+			width:100%;
+			margin:0;
+			padding:0;
 		}
 	</style>
 
@@ -191,26 +203,32 @@
   <!-- /Contenido -->
 <div class="row">
 	<div class="col-sm-8">
-	<div class="panel panel-default">
-		
-		<h3>BINAURAL<small>Últimas noticias</small></h3>
-			<dl class="dl-horizontal">
-			{% for new in news %}
-				<h5><li><a href= {{ new.link }}>{{ new.title }}</a><small>{{ new.published }}</small></li></h5>
-			{% endfor %}
+		<div class="row">
+			<div class="col-sm-12">
+			<div class="panel panel-default">
+				
+				<h3>BINAURAL<small>Últimas noticias</small></h3>
+					<dl class="dl-horizontal">
+					{% for new in news %}
+						<h5><li><a href= {{ new.link }}>{{ new.title }}</a><small>{{ new.published }}</small></li></h5>
+					{% endfor %}
+			</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+			<a class="twitter-timeline" data-width="650" data-height="400" data-theme="light" href="https://twitter.com/pitchforkfest">Pitchfork Music Festival</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+			</div>
+		</div>
 	</div>
-	</div>
-
 	<div class="col-sm-4">
 		<iframe src="https://embed.spotify.com/?uri=spotify:user:binaural_es:playlist:1IS9QwQvnrmCBhaO6upOwu" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
 	</div>
-	
-
 </div> 
 
   
     <!-- Pie -->
-  <div id="pie">
+  <div id="pie" style="background:#fce3ec">
     <span class="enlaces">
       <a href="https://www.facebook.com/pitchforkparis">Facebook</a> |
       <a href="https://www.instagram.com/pitchforkparis">Instagram</a>
