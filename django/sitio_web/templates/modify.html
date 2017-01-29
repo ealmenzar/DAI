@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+	
+	<p>
+	  <a href="{% url 'search' %}" class="list-group-item">Buscar un restaurante</a>
+	</p>
+	<p>
+	  <a href="{% url 'add' %}" class="list-group-item">Añadir un restaurante</a>
+	</p>
+	<p>
+	  <a href="{% url 'delete' %}" class="list-group-item">Borrar un restaurante</a>
+	</p>
+
+	{% block content %}{% endblock %}
+	
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "modify.html" %}
+
+{% block content %}
+
+<form action="/restaurantes/search/" method="post">
+	{% csrf_token %}
+	{{ form }}
+	<input type="submit" value="OK">
+</form>
+<h5 style="color:#ff0000">{{ message }}</h5>
+{% for key, value in restaurant.items %}
+	{% if key == "borough" %}
+		{% for b in value %}
+			<h5> ·    {{ b }}</h5>
+		{% endfor %}
+	{% else %}
+		{% if key == "name" %}
+			<h1>{{ value }}</h1>
+		{% else %}
+			<h4>{{ value }}</h4>
+		{% endif %}
+	{% endif %}
+{% endfor %}
+
+{% endblock %}

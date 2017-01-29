@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>DAI</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../static/css/ie10.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../../static/css/signin.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+        <div class="container">
+            {% block body_block %}
+                <h1>HOME</h1>
+            {% endblock %}
+        </div>
+
+        <hr />
+
+        <div class="foot" style="background:#ffffff">
+            <ul>
+                <li><a href="{% url 'registration_register' %}">Registration</a></li>
+                <li><a href="{% url 'auth_login' %}">Login</a></li>
+                <li><a href="{% url 'auth_logout' %}?next=/restaurantes/">Logout</a></li>
+                <li><a href="{% url 'modify' %}">Modify</a></li>
+                <li><a href="{% url 'index' %}">Home</a></li>
+            </ul>
+        </div>
+    </body>
+</html>
